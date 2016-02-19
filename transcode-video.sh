@@ -1225,6 +1225,9 @@ track_id='1'
 
 for item in "${extra_subtitle_tracks[@]}"; do
     track_number="$(printf '%.0f' "$(echo "$item" | sed 's/^forced,//')" 2>/dev/null)"
+    if [ $item -eq ""]; then
+	continue
+    fi
 
     if (($track_number < 1)); then
         die "invalid additional subtitle track: $item"
