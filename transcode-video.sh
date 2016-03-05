@@ -1610,7 +1610,10 @@ time {
         2>&1 | tee -a "$log_file"
 
     if [ -f "$output" ]; then
-
+	if [ "$container_format" == 'mkv' ]; then
+	    mkvpropedit --quiet -e "info" -d "title" "$output" || exit 1
+	fi
+	
         for item in "${audio_track_name_edits[@]}"; do
             track_index="$(echo "$item" | sed 's/,.*$//')"
             track_name="$(echo "$item" | sed 's/^[^,]*,//')"
