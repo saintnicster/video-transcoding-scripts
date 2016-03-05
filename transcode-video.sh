@@ -1611,7 +1611,7 @@ time {
 
     if [ -f "$output" ]; then
 	if [ "$container_format" == 'mkv' ]; then
-	    mkvpropedit --quiet -e "info" -d "title" "$output" || exit 1
+	    mkvpropedit -e "info" -d "title" "$output" 2>&1 | tee -a "$log_file"
 	fi
 	
         for item in "${audio_track_name_edits[@]}"; do
