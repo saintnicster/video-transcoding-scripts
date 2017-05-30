@@ -787,7 +787,7 @@ if ((($width > $constrain_width)) || (($height > $constrain_height))); then
 elif [ "$custom_width" ] || [ "$custom_height" ]; then
     size_options='--custom-anamorphic'
 else
-    size_options='--strict-anamorphic'
+    size_options='--auto-anamorphic'
 fi
 
 if [ "$custom_height" ]; then
