@@ -644,35 +644,35 @@ if ! $(which HandBrakeCLI >/dev/null); then
     die 'executable not in $PATH: HandBrakeCLI'
 fi
 
-readonly version="$(HandBrakeCLI --preset-list 2>&1)"
-
-if [ ! "$version" ]; then
-    die "can't determine HandBrakeCLI version"
-fi
-
-readonly release_version="$(echo "$version" |
-    sed -n 's/^HandBrake \([0-9]\{1,\}\)\.\([0-9]\{1,\}\)\.\([0-9]\{1,\}\) .*$/\1 \2 \3/p' |
-    sed 's/ 0\([0-9]\)/ \1/g')"
-
-if [ "$release_version" ]; then
-    readonly version_array=($release_version)
-
-    if ((((${version_array[0]} * 10) + ${version_array[1]}) < 10)); then
-        die 'HandBrake version 0.10.0 or later is required'
-    fi
-else
-    readonly svn_version="$(echo "$version" |
-        sed -n 's/^HandBrake svn\([0-9]\{1,\}\) .*$/\1/p')"
-
-    if [ "$svn_version" ]; then
-
-        if (($svn_version < 6536)); then
-            die 'HandBrake version 0.10.0 or later is required'
-        fi
-    else
-        die "can't determine HandBrakeCLI version"
-    fi
-fi
+#readonly version="$(HandBrakeCLI --preset-list 2>&1)"
+#
+#if [ ! "$version" ]; then
+#    die "can't determine HandBrakeCLI version"
+#fi
+#
+#readonly release_version="$(echo "$version" |
+#    sed -n 's/^HandBrake \([0-9]\{1,\}\)\.\([0-9]\{1,\}\)\.\([0-9]\{1,\}\) .*$/\1 \2 \3/p' |
+#    sed 's/ 0\([0-9]\)/ \1/g')"
+#
+#if [ "$release_version" ]; then
+#    readonly version_array=($release_version)
+#
+#    if ((((${version_array[0]} * 10) + ${version_array[1]}) < 10)); then
+#        die 'HandBrake version 0.10.0 or later is required'
+#    fi
+#else
+#    readonly svn_version="$(echo "$version" |
+#        sed -n 's/^HandBrake svn\([0-9]\{1,\}\) .*$/\1/p')"
+#
+#    if [ "$svn_version" ]; then
+#
+#        if (($svn_version < 6536)); then
+#            die 'HandBrake version 0.10.0 or later is required'
+#        fi
+#    else
+#        die "can't determine HandBrakeCLI version"
+#    fi
+#fi
 
 if [ "$media_title" == '0' ]; then
     echo "Scanning: $input" >&2
